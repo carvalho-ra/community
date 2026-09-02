@@ -9,9 +9,9 @@ lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
 def home():
     return render_template("home.html")
 
-@app.route("/contato")
-def contato():
-    return render_template("contato.html")
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 @app.route("/users")
 def users():
