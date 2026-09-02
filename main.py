@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, flash, redirect
 from forms import FormCreateAccount, FormLogin
 
 
@@ -25,6 +25,15 @@ def users():
 def login():
     form_create_account = FormCreateAccount()
     form_login = FormLogin()
+
+    if form_login.validate_on_submit() and "btn_submit_login" in request.form:
+        flash(f"Login successfull for email {form_login.email.data}", "alert-success")
+        return redirect(url_for("home"))
+    
+    if form_create_account.validate_on_submit() and "btn_submit_create_account" in request.form:
+        flash(f"Account created for email {form_create_account.email.data}", "alert-success")
+        return redirect(url_for('home'))
+
     return render_template("login.html", form_create_account=form_create_account, form_login=form_login)
 
 
