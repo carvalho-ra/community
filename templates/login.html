@@ -10,11 +10,29 @@
                     <fieldset>
                         <div class="form-group">
                         {{ form_login.email.label(class="form-control-label") }}
-                        {{ form_login.email(class="form-control") }}
+                        {% if form_login.email.errors %}
+                            {{ form_login.email(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_login.email.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_login.email(class="form-control") }}
+                        {% endif %}
                         </div>
                         <div class="form-group">
                         {{ form_login.password.label(class="form-control-label") }}
-                        {{ form_login.password(class="form-control") }}
+                        {% if form_login.password.errors %}
+                            {{ form_login.password(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_login.password.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_login.password(class="form-control") }}
+                        {% endif %}
                         </div>
                         <div class="form-group">
                         {{ form_login.keep_logged_in.label(class="mt-1") }}
@@ -31,19 +49,55 @@
                     <fieldset>
                         <div class="form-group">
                         {{ form_create_account.username.label(class="form-control-label") }}
-                        {{ form_create_account.username(class="form-control") }}
+                        {% if form_create_account.username.errors %}
+                            {{ form_create_account.username(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_create_account.username.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_create_account.username(class="form-control") }}
+                        {% endif %}
                         </div>
                         <div class="form-group">
                         {{ form_create_account.email.label(class="form-control-label") }}
-                        {{ form_create_account.email(class="form-control") }}
+                        {% if form_create_account.email.errors %}
+                            {{ form_create_account.email(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_create_account.email.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_create_account.email(class="form-control") }}
+                        {% endif %}
                         </div>
                         <div class="form-group">
                         {{ form_create_account.password.label(class="form-control-label") }}
-                        {{ form_create_account.password(class="form-control") }}
+                        {% if form_create_account.password.errors %}
+                            {{ form_create_account.password(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_create_account.password.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_create_account.password(class="form-control") }}
+                        {% endif %}
                         </div>
                         <div class="form-group">
                         {{ form_create_account.confirm_pwd.label(class="form-control-label") }}
-                        {{ form_create_account.confirm_pwd(class="form-control") }}
+                        {% if form_create_account.confirm_pwd.errors %}
+                            {{ form_create_account.confirm_pwd(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for err in form_create_account.confirm_pwd.errors %}
+                                    {{ err }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form_create_account.confirm_pwd(class="form-control") }}
+                        {% endif %}
                         </div>
                     </fieldset>
                     {{ form_create_account.btn_submit_create_account(class="btn btn-primary mt-2") }}
