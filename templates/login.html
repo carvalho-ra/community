@@ -1,16 +1,51 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="container">
+        <hr>
         <div class="row">
             <div class="col">
-                <h1>Login</h1>
-                {{ form_login.email }}
-                {{ form_login.password }}
+                <form method="POST" action="" class="border mt-3 p-4">
+                <legend>Login</legend>
+                <fieldset>
+                    <div class="form-group">
+                    {{ form_login.email.label(class="form-control-label") }}
+                    {{ form_login.email(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_login.password.label(class="form-control-label") }}
+                    {{ form_login.password(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_login.keep_logged_in.label }}
+                    {{ form_login.keep_logged_in(class="form-check-input") }}
+                    </div>
+                </fieldset>
+                {{ form_login.btn_submit_login(class="btn btn-primary") }}
+                </form>
             </div>
             <div class="col">
-                <h1>Create account</h1>
-                {{ form_create_account.username }}
-                {{ form_create_account.email }}
+                <form method="POST" action="" class="border mt-3 p-4">
+                <legend>Create account</legend>
+                <fieldset>
+                    <div class="form-group">
+                    {{ form_create_account.username.label(class="form-control-label") }}
+                    {{ form_create_account.username(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_create_account.email.label(class="form-control-label") }}
+                    {{ form_create_account.email(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_create_account.password.label(class="form-control-label") }}
+                    {{ form_create_account.password(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_create_account.confirm_pwd.label(class="form-control-label") }}
+                    {{ form_create_account.confirm_pwd(class="form-control") }}
+                    </div>
+                </fieldset>
+                {{ form_create_account.btn_submit_create_account(class="btn btn-primary") }}
+                </form>
             </div>
     </div>
 {% endblock %}
