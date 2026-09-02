@@ -17,6 +17,10 @@ def contact():
 def users():
     return render_template("users.html", lista_users=lista_users)
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
