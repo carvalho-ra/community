@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for
+from forms import FormCreateAccount, FormLogin
 
 
 app = Flask(__name__)
@@ -22,7 +23,9 @@ def users():
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    form_create_account = FormCreateAccount()
+    form_login = FormLogin()
+    return render_template("login.html", form_create_account=form_create_account, form_login=form_login)
 
 
 if __name__ == '__main__':

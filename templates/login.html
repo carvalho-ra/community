@@ -4,9 +4,13 @@
         <div class="row">
             <div class="col">
                 <h1>Login</h1>
+                {{ form_login.email }}
+                {{ form_login.password }}
             </div>
             <div class="col">
                 <h1>Create account</h1>
+                {{ form_create_account.username }}
+                {{ form_create_account.email }}
             </div>
     </div>
 {% endblock %}
