@@ -1,5 +1,5 @@
-from main import app, database
-from models import User, Post
+from app import app, database
+from app.models import User, Post
 
 # with app.app_context():
 #     user = User(username="Rodrigo", email="rodrigo@gmail.com", password="123456")
@@ -16,9 +16,9 @@ from models import User, Post
 #     database.session.commit()
 
 
-# with app.app_context():
-#     all_users = User.query.all()
-#     print(all_users[0].email)
+with app.app_context():
+    all_users = User.query.all()
+    print(all_users)
 
 # with app.app_context():
 #     all_posts = Post.query.first()
@@ -26,5 +26,5 @@ from models import User, Post
 #     print(all_posts.title)
 
 # delete database
-with app.app_context():
-    database.drop_all()
+# # with app.app_context():
+# #     database.drop_all()

@@ -1,6 +1,8 @@
 from flask import render_template, redirect, url_for, flash, request
-from app import app
+from app import app, database
 from app.forms import FormLogin, FormCreateAccount
+from app.models import User, Post
+
 
 lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
 
@@ -26,6 +28,9 @@ def login():
         return redirect(url_for("home"))
     
     if "btn_submit_create_account" in request.form and form_create_account.validate_on_submit():
+        user = User(username=form_create_account.username.data, email=form_create_account.email.data, password=form_create_account.password.data)
+        database.session.add(user)
+        database.session.commit()
         flash(f"Account created for email {form_create_account.email.data}", "alert-success")
         return redirect(url_for('home'))
 
