@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from app import app, database, bcrypt
 from app.forms import FormLogin, FormCreateAccount
 from app.models import User, Post
-from flask_login import login_user
+from flask_login import login_user, logout_user, current_user
 
 
 lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
@@ -43,3 +43,16 @@ def login():
 
     return render_template("login.html", form_create_account=form_create_account, form_login=form_login)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash(f"Logout feito com sucesso.", "alert-success")
+    return redirect(url_for('home'))
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/post/create')
+def create_post():
+    return render_template('create_post.html')
