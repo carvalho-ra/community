@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from app import app, database, bcrypt
 from app.forms import FormLogin, FormCreateAccount
 from app.models import User, Post
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 
 lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
@@ -16,6 +16,7 @@ def contact():
     return render_template("contact.html")
 
 @app.route("/users")
+@login_required
 def users():
     return render_template("users.html", lista_users=lista_users)
 
@@ -44,15 +45,18 @@ def login():
     return render_template("login.html", form_create_account=form_create_account, form_login=form_login)
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     flash(f"Logout feito com sucesso.", "alert-success")
     return redirect(url_for('home'))
 
 @app.route('/profile')
+@login_required
 def profile():
     return render_template('profile.html')
 
 @app.route('/post/create')
+@login_required
 def create_post():
     return render_template('create_post.html')
