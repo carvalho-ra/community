@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from app import app, database, bcrypt
-from app.forms import FormLogin, FormCreateAccount
+from app.forms import FormLogin, FormCreateAccount, FormEditProfile
 from app.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -65,3 +65,10 @@ def profile():
 @login_required
 def create_post():
     return render_template('create_post.html')
+
+@app.route('/profile/edit', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = FormEditProfile()
+    profile_img = url_for('static', filename='profile_imgs/{}'.format(current_user.profile_img))
+    return render_template('edit_profile.html', profile_img=profile_img, form=form)

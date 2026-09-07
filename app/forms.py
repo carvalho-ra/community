@@ -21,3 +21,8 @@ class FormLogin(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired(), Length(6, 20)])
     keep_logged_in = BooleanField("Keep Logged In")
     btn_submit_login = SubmitField("Login")
+
+class FormEditProfile(FlaskForm):
+    username = StringField("User", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    btn_submit_edit_profile = SubmitField("Confirm edition")
