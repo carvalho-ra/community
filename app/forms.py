@@ -29,6 +29,11 @@ class FormEditProfile(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     btn_submit_edit_profile = SubmitField("Confirm edition")
     profile_img = FileField('Atualizar foto de perfil', validators=[FileAllowed(['jpg', 'png'])])
+    course_python = BooleanField("Python")
+    course_golang = BooleanField("Golang")
+    course_Java = BooleanField("Java")
+    course_Fullstack = BooleanField("Fullstack")
+
 
     def validate_email(self, email):
         if current_user.email != email.data:

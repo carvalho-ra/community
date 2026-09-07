@@ -44,6 +44,17 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
+                        <hr>
+                        <p>Cursos</p>
+                        {% for item in form %}
+                            {% if "course_" in item.name %}
+                                <div class="form-group">
+                                    {{ item(class="form-check-input mt-2") }}
+                                    {{ item.label(class="mt-1") }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        
                     </fieldset>
                     {{ form.btn_submit_edit_profile(class="btn btn-primary mt-2") }}
                 </form>
