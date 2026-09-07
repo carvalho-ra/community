@@ -3,6 +3,9 @@ from app import app, database, bcrypt
 from app.forms import FormLogin, FormCreateAccount, FormEditProfile
 from app.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
+import secrets
+import os
+from PIL import Image
 
 
 lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
@@ -66,6 +69,19 @@ def profile():
 def create_post():
     return render_template('create_post.html')
 
+
+def save_img(img):
+    code = secrets.token_hex(8)
+    name, ext = os.path.splitext(img.filename)
+    filename = name + code + ext
+    path = os.path.join(app.root_path, 'static/profile_imgs', filename)
+    size = (200, 200)
+    img_reduced = Image.open(img)
+    img_reduced.thumbnail(size)
+    img_reduced.save(path)
+    return filename
+
+
 @app.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -73,6 +89,9 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.email = form.email.data
         current_user.username = form.username.data
+        if form.profile_img.data:
+            img_name = save_img(form.profile_img.data)
+            current_user.profile_img = img_name
         database.session.commit()
         flash(f"Perfil atualizado com sucesso.", "alert-success")
         return redirect(url_for('profile'))
