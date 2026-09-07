@@ -16,15 +16,15 @@ from app.models import User, Post
 #     database.session.commit()
 
 
-with app.app_context():
-    all_users = User.query.all()
-    print(all_users)
+# with app.app_context():
+#     all_users = User.query.all()
+#     print(all_users[1].password)
 
 # with app.app_context():
 #     all_posts = Post.query.first()
 #     print(all_posts.author.email)
 #     print(all_posts.title)
 
-# delete database
-# # with app.app_context():
-# #     database.drop_all()
+# # delete database
+# with app.app_context():
+#     database.drop_all()
