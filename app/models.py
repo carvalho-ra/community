@@ -1,4 +1,4 @@
-from main import database
+from app import database
 from datetime import datetime, timezone
 
 
