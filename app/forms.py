@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
@@ -27,6 +28,7 @@ class FormEditProfile(FlaskForm):
     username = StringField("User", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     btn_submit_edit_profile = SubmitField("Confirm edition")
+    profile_img = FileField('Atualizar foto de perfil', validators=[FileAllowed(['jpg', 'png'])])
 
     def validate_email(self, email):
         if current_user.email != email.data:
