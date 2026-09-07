@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
+from flask_login import current_user
 
 
 class FormCreateAccount(FlaskForm):
@@ -26,3 +27,9 @@ class FormEditProfile(FlaskForm):
     username = StringField("User", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     btn_submit_edit_profile = SubmitField("Confirm edition")
+
+    def validate_email(self, email):
+        if current_user.email != email.data:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('Email já cadastrado.')
