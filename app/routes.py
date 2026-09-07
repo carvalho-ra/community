@@ -32,7 +32,11 @@ def login():
         else:
             flash(f"Email ou senha incorretos!", "alert_danger")
         flash(f"Login successfull for email {form_login.email.data}", "alert-success")
-        return redirect(url_for("home"))
+        param_next = request.args.get('next')
+        if param_next:
+            return redirect(param_next)
+        else:
+            return redirect(url_for("home"))
     
     if "btn_submit_create_account" in request.form and form_create_account.validate_on_submit():
         pwd_crypt = bcrypt.generate_password_hash(form_create_account.password.data)
