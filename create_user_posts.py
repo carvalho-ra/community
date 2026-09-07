@@ -16,9 +16,9 @@ from app.models import User, Post
 #     database.session.commit()
 
 
-# with app.app_context():
-#     all_users = User.query.all()
-#     print(all_users[1].password)
+with app.app_context():
+    all_users = User.query.filter_by(email='rodrigo@gmail.com').first()
+    print(all_users.cursos)
 
 # with app.app_context():
 #     all_posts = Post.query.first()
