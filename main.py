@@ -26,11 +26,11 @@ def login():
     form_create_account = FormCreateAccount()
     form_login = FormLogin()
 
-    if form_login.validate_on_submit() and "btn_submit_login" in request.form:
+    if "btn_submit_login" in request.form and form_login.validate_on_submit():
         flash(f"Login successfull for email {form_login.email.data}", "alert-success")
         return redirect(url_for("home"))
     
-    if form_create_account.validate_on_submit() and "btn_submit_create_account" in request.form:
+    if "btn_submit_create_account" in request.form and form_create_account.validate_on_submit():
         flash(f"Account created for email {form_create_account.email.data}", "alert-success")
         return redirect(url_for('home'))
 
