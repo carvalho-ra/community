@@ -6,9 +6,11 @@
                 <div class="image pe-2 mt-2"> <img src="{{ url_for('static', filename='profile_imgs/{}'.format(post.author.profile_img)) }}" class="rounded" width="145"> </div>
                 <strong>{{ post.author.username }}</strong>
                 <div class="row justify-content-center">
-                    {% for course in post.author.cursos.split(';') %}
-                        <button type="button" class="btn btn-success mt-2" disabled>{{ course }}</button>
-                    {% endfor %}
+                    {% if post.author.cursos and 'Não informado' not in post.author.cursos%}
+                        {% for course in post.author.cursos.split(';') %}
+                            <button type="button" class="btn btn-success mt-2" disabled>{{ course }}</button>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-9">
@@ -17,4 +19,45 @@
             </div>
         </div>
     </div>
+    {% if form %}
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <form method="POST" action="" class="border mt-3 p-4">
+                        {{ form.csrf_token }} 
+                        <legend>Editar Post</legend>
+                        <fieldset>
+                            <div class="form-group">
+                                {{ form.title.label(class="form-control-label") }}
+                                {% if form.title.errors %}
+                                    {{ form.title(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for err in form.title.errors %}
+                                            {{ err }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.title(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.body.label(class="form-control-label") }}
+                                {% if form.body.errors %}
+                                    {{ form.body(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for err in form.body.errors %}
+                                            {{ err }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.body(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        {{ form.btn_submit_edit_post(class="btn btn-primary mt-2") }}
+                    </form>
+                </div>
+        </div>
+    {% endif %}
 {% endblock %}

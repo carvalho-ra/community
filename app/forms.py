@@ -45,3 +45,9 @@ class FormCreatePost(FlaskForm):
     title = StringField("Título", validators=[DataRequired(), Length(2, 100)])
     body = TextAreaField("Escreva seu post aqui...", validators=[DataRequired()])
     btn_submit_post = SubmitField('Criar Post')
+
+
+class FormEditPost(FlaskForm):
+    title = StringField("Título", validators=[DataRequired(), Length(2, 100)])
+    body = TextAreaField("Escreva seu post aqui...", validators=[DataRequired()])
+    btn_submit_edit_post = SubmitField('Editar Post')
