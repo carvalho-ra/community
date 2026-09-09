@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container mt-3">
+        <div class="row boder mt-4 p-3 mypost rounded">
+            <div class="col-2">
+                <div class="image pe-2 mt-2"> <img src="{{ url_for('static', filename='profile_imgs/{}'.format(post.author.profile_img)) }}" class="rounded" width="145"> </div>
+                <strong>{{ post.author.username }}</strong>
+                <div class="row justify-content-center">
+                    {% for course in post.author.cursos.split(';') %}
+                        <button type="button" class="btn btn-success mt-2" disabled>{{ course }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-9">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.body }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

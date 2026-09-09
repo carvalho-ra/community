@@ -118,3 +118,9 @@ def edit_profile():
         form.username.data = current_user.username
     profile_img = url_for('static', filename='profile_imgs/{}'.format(current_user.profile_img))
     return render_template('edit_profile.html', profile_img=profile_img, form=form)
+
+@app.route('/post/<post_id>')
+@login_required
+def view_post(post_id):
+    post = Post.query.get(post_id)
+    return render_template('post.html', post=post)
