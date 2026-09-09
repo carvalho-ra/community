@@ -17,8 +17,8 @@ from app.models import User, Post
 
 
 with app.app_context():
-    all_users = User.query.filter_by(email='rodrigo@gmail.com').first()
-    print(all_users.cursos)
+    all_posts = Post.query.all()
+    print(all_posts)
 
 # with app.app_context():
 #     all_posts = Post.query.first()

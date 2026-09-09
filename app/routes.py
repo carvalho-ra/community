@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from app import app, database, bcrypt
-from app.forms import FormLogin, FormCreateAccount, FormEditProfile
+from app.forms import FormLogin, FormCreateAccount, FormEditProfile, FormCreatePost
 from app.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets
@@ -64,10 +64,17 @@ def profile():
     profile_img = url_for('static', filename='profile_imgs/{}'.format(current_user.profile_img))
     return render_template('profile.html', profile_img=profile_img)
 
-@app.route('/post/create')
+@app.route('/post/create', methods=['GET', 'POST'])
 @login_required
 def create_post():
-    return render_template('create_post.html')
+    form = FormCreatePost()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, body=form.body.data, author=current_user)
+        database.session.add(post)
+        database.session.commit()
+        flash('Post criado com sucesso', 'alert-success')
+        return redirect(url_for('home'))
+    return render_template('create_post.html', form=form)
 
 
 def save_img(img):

@@ -1,7 +1,42 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="container">
-        <h1>Create Post</h1>
-        <h2>Testando...</h2>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="" class="border mt-3 p-4">
+                    {{ form.csrf_token }} 
+                    <legend>Criar Post</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form.title.label(class="form-control-label") }}
+                            {% if form.title.errors %}
+                                {{ form.title(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for err in form.title.errors %}
+                                        {{ err }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.title(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.body.label(class="form-control-label") }}
+                            {% if form.body.errors %}
+                                {{ form.body(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for err in form.body.errors %}
+                                        {{ err }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.body(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form.btn_submit_post(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
     </div>
 {% endblock %}
