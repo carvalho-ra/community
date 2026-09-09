@@ -14,7 +14,13 @@
                 </div>
             </div>
             <div class="col-9">
-                <h3>{{ post.title }}</h3>
+                <h3>{{ post.title }}
+                    <small class="text-muted" style="font-size: 15px"> - Data de criação: {{ post.created_at.strftime('%d/%m/%Y - %H:%M') }}
+                        {% if form %}
+                        - <a href="#form_edit_post">Editar Post</a> / <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#ExcludePost">Excluir Post</a>
+                        {% endif %}
+                    </small>
+                </h3>
                 <p>{{ post.body }}</p>
             </div>
         </div>
@@ -24,7 +30,7 @@
             <hr>
             <div class="row">
                 <div class="col">
-                    <form method="POST" action="" class="border mt-3 p-4">
+                    <form method="POST" action="" id="form_edit_post" class="border mt-3 p-4">
                         {{ form.csrf_token }} 
                         <legend>Editar Post</legend>
                         <fieldset>
@@ -60,4 +66,27 @@
                 </div>
         </div>
     {% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="ExcludePost" tabindex="-1" aria-labelledby="ExcludePostLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ExcludePostLabel">Excluir Post</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Deseja realmente excluir o Post?<br>
+        Esta ação não pode ser desfeita.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}">
+            <button type="submit" class="btn btn-outline-danger">Excluir Post</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="col-9">
-                    <a style="text-decoration: none" href="{{ url_for('view_post', post_id=post.id)}}"><h3>{{ post.title }}</h3></a>
+                    <a style="text-decoration: none" href="{{ url_for('view_post', post_id=post.id)}}"><h3>{{ post.title }}</a><small class="text-muted" style="font-size: 15px"> - Data de criação: {{ post.created_at.strftime('%d/%m/%Y - %H:%M') }}</small></h3>
                     <p>{{ post.body }}</p>
                 </div>
             </div>
