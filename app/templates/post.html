@@ -3,7 +3,7 @@
     <div class="container mt-3">
         <div class="row boder mt-4 p-3 mypost rounded">
             <div class="col-2">
-                <div class="image pe-2 mt-2"> <img src="{{ url_for('static', filename='profile_imgs/{}'.format(post.author.profile_img)) }}" class="rounded" width="145"> </div>
+                <div class="image pe-2 mt-2"> <img src="{{ url_for('profile_image', user_id=post.author.id) }}" class="rounded" width="145"> </div>
                 <strong>{{ post.author.username }}</strong>
                 <div class="row justify-content-center">
                     {% if post.author.cursos and 'Não informado' not in post.author.cursos%}

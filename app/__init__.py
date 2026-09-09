@@ -1,16 +1,28 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import boto3
 
+
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "028d82684689544411b57f7562dd2b41"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///community.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 
 database = SQLAlchemy(app)
+
+minio_client = boto3.client(
+    "s3",
+    endpoint_url=f"http://{os.getenv('MINIO_ENDPOINT')}",
+    aws_access_key_id=os.getenv("MINIO_ROOT_USER"),
+    aws_secret_access_key=os.getenv("MINIO_ROOT_PASSWORD"),
+)
 
 bcrypt = Bcrypt(app)
 

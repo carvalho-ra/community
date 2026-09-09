@@ -1,10 +1,11 @@
-from flask import render_template, redirect, url_for, flash, request, abort
-from app import app, database, bcrypt
+from flask import render_template, redirect, url_for, flash, request, abort, send_file
+from app import app, database, bcrypt, minio_client
 from app.forms import FormLogin, FormCreateAccount, FormEditProfile, FormCreatePost, FormEditPost
 from app.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets
 import os
+import tempfile
 from PIL import Image
 
 
@@ -43,7 +44,7 @@ def login():
             flash(f"Email ou senha incorretos!", "alert-danger")
     
     if "btn_submit_create_account" in request.form and form_create_account.validate_on_submit():
-        pwd_crypt = bcrypt.generate_password_hash(form_create_account.password.data)
+        pwd_crypt = bcrypt.generate_password_hash(form_create_account.password.data).decode("utf-8")
         user = User(username=form_create_account.username.data, email=form_create_account.email.data, password=pwd_crypt)
         database.session.add(user)
         database.session.commit()
@@ -62,8 +63,7 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
-    profile_img = url_for('static', filename='profile_imgs/{}'.format(current_user.profile_img))
-    return render_template('profile.html', profile_img=profile_img)
+    return render_template('profile.html')
 
 @app.route('/post/create', methods=['GET', 'POST'])
 @login_required
@@ -82,11 +82,19 @@ def save_img(img):
     code = secrets.token_hex(8)
     name, ext = os.path.splitext(img.filename)
     filename = name + code + ext
-    path = os.path.join(app.root_path, 'static/profile_imgs', filename)
-    size = (200, 200)
+
     img_reduced = Image.open(img)
-    img_reduced.thumbnail(size)
-    img_reduced.save(path)
+    img_reduced.thumbnail((200, 200))
+
+    with tempfile.NamedTemporaryFile(suffix=ext) as temp:
+        img_reduced.save(temp.name, format=img_reduced.format)
+
+        minio_client.upload_file(
+            temp.name,
+            os.getenv('MINIO_BUCKET'),
+            filename,
+        )
+
     return filename
 
 
@@ -149,3 +157,17 @@ def delete_post(post_id):
         return redirect(url_for('home'))
     else:
         abort(403)
+
+@app.route('/profile/image/<user_id>')
+def profile_image(user_id):
+    user = User.query.get_or_404(user_id)
+
+    image = minio_client.get_object(
+        Bucket=os.getenv('MINIO_BUCKET'),
+        Key=user.profile_img,
+    )
+
+    return send_file(
+        image['Body'],
+        mimetype=image['ContentType'],
+    )

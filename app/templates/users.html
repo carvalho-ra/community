@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="container border">
+    <div class="container">
         <h1>Users</h1>
+        <hr>
         {% for user in lista_users %}
             <div class="container mt-5 d-flex justify-content-center">
                 <div class="card p-3">
                     <div class="d-flex align-items-center">
-                        <div class="image pe-2 mt-2"> <img src="{{ url_for('static', filename='profile_imgs/{}'.format(user.profile_img)) }}" class="rounded" width="145"> </div>
+                        <div class="image pe-2 mt-2"> <img src="{{ url_for('profile_image', user_id=user.id) }}" class="rounded" width="145"> </div>
                         <div class="ml-3 w-100">
                             <h4 class="mb-0 mt-0">{{ user.username }}</h4> <span>{{ user.email }}</span>
                             <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">

@@ -27,7 +27,7 @@ class FormLogin(FlaskForm):
 class FormEditProfile(FlaskForm):
     username = StringField("User", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    btn_submit_edit_profile = SubmitField("Confirm edition")
+    btn_submit_edit_profile = SubmitField("Confirmar Edição")
     profile_img = FileField('Atualizar foto de perfil', validators=[FileAllowed(['jpg', 'png'])])
     course_python = BooleanField("Python")
     course_golang = BooleanField("Golang")
