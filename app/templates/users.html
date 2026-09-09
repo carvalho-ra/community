@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="container">
+    <div class="container border">
         <h1>Users</h1>
         {% for user in lista_users %}
             <div class="container mt-5 d-flex justify-content-center">
@@ -15,7 +15,7 @@
                                 {% else %}
                                     <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">{{ user.cursos.count(';') + 1 }}</span> </div>
                                 {% endif %}
-                                <div class="d-flex flex-column"> <span class="rating">Posts</span> <span class="number3">0</span> </div>
+                                <div class="d-flex flex-column"> <span class="rating">Posts</span> <span class="number3">{{ user.count_posts() }}</span> </div>
                             </div>
                         </div>
                     </div>
