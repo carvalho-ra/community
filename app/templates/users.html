@@ -3,8 +3,37 @@
     <div class="container">
         <h1>Users</h1>
         {% for user in lista_users %}
-            <p> {{ user }} </p>
-            <hr>
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="image pe-2 mt-2"> <img src="{{ url_for('static', filename='profile_imgs/{}'.format(user.profile_img)) }}" class="rounded" width="145"> </div>
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-0 mt-0">{{ user.username }}</h4> <span>{{ user.email }}</span>
+                            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                {% if not user.cursos or 'Não informado' in user.cursos %}
+                                    <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">0</span> </div>
+                                {% else %}
+                                    <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">{{ user.cursos.count(';') + 1 }}</span> </div>
+                                {% endif %}
+                                <div class="d-flex flex-column"> <span class="rating">Posts</span> <span class="number3">0</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if user.cursos and 'Não informado' not in user.cursos %}
+                <div class="row justify-content-center">
+                    <div class="col col-4" style="text-align: center">
+                        <strong>Cursos</strong><br>
+                        {% for course in user.cursos.split(';') %}
+                            <button type="button" class="btn btn-success mt-2" disabled>{{ course }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
+    </div>
+    
+    <div class="row mt-5">
     </div>
 {% endblock %}

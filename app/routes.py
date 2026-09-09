@@ -8,7 +8,6 @@ import os
 from PIL import Image
 
 
-lista_users = ['Rodrigo', 'Rafael', 'Fernanda', 'Alon', 'Flávia']
 
 @app.route("/")
 def home():
@@ -21,6 +20,7 @@ def contact():
 @app.route("/users")
 @login_required
 def users():
+    lista_users = User.query.all()
     return render_template("users.html", lista_users=lista_users)
 
 @app.route("/login", methods=['GET', 'POST'])
