@@ -31,6 +31,8 @@ services:
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_ENDPOINT: ${MINIO_ENDPOINT}
       MINIO_BUCKET: ${MINIO_BUCKET}
+    volumes:
+      - .:/app
     depends_on:
       db:
         condition: service_healthy

@@ -34,7 +34,7 @@ def login():
         user = User.query.filter_by(email=form_login.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form_login.password.data):
             login_user(user, remember=form_login.keep_logged_in.data)
-            flash(f"Login successfull for email {form_login.email.data}", "alert-success")
+            flash(f"Login confirmado para o email {form_login.email.data}", "alert-success")
             param_next = request.args.get('next')
             if param_next:
                 return redirect(param_next)
@@ -48,7 +48,7 @@ def login():
         user = User(username=form_create_account.username.data, email=form_create_account.email.data, password=pwd_crypt)
         database.session.add(user)
         database.session.commit()
-        flash(f"Account created for email {form_create_account.email.data}", "alert-success")
+        flash(f"Conta criada para o email {form_create_account.email.data}", "alert-success")
         return redirect(url_for('login'))
 
     return render_template("login.html", form_create_account=form_create_account, form_login=form_login)

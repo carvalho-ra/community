@@ -259,6 +259,12 @@ community/
 │       ├── profile.html
 │       └── users.html
 │
+├── images/
+│   ├── 01.png
+│   ├── 02.png
+│   ├── 03.png
+│   └── 04.png
+│
 ├── minio/
 │   └── init_minio.sh
 │
@@ -313,3 +319,21 @@ Future improvements may include:
 ## License
 
 This project is licensed under the terms of the license included in this repository.
+
+## Screenshots
+
+### Home
+
+<img src="images/01.png" width="600">
+
+### Usuários
+
+<img src="images/02.png" width="600">
+
+### Editar publicação
+
+<img src="images/03.png" width="600">
+
+### Editar perfil
+
+<img src="images/04.png" width="600">

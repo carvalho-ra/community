@@ -7,11 +7,11 @@ from flask_login import current_user
 
 
 class FormCreateAccount(FlaskForm):
-    username = StringField("User", validators=[DataRequired()])
+    username = StringField("Usuário", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired(), Length(6, 20)])
-    confirm_pwd = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
-    btn_submit_create_account = SubmitField("Create account")
+    password = PasswordField("Senha", validators=[DataRequired(), Length(6, 20)])
+    confirm_pwd = PasswordField("Confirmar Senha", validators=[DataRequired(), EqualTo("password")])
+    btn_submit_create_account = SubmitField("Criar Conta")
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -20,12 +20,12 @@ class FormCreateAccount(FlaskForm):
 
 class FormLogin(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired(), Length(6, 20)])
-    keep_logged_in = BooleanField("Keep Logged In")
-    btn_submit_login = SubmitField("Login")
+    password = PasswordField("Senha", validators=[DataRequired(), Length(6, 20)])
+    keep_logged_in = BooleanField("Permanecer conectado")
+    btn_submit_login = SubmitField("Entrar")
 
 class FormEditProfile(FlaskForm):
-    username = StringField("User", validators=[DataRequired()])
+    username = StringField("Usuário", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     btn_submit_edit_profile = SubmitField("Confirmar Edição")
     profile_img = FileField('Atualizar foto de perfil', validators=[FileAllowed(['jpg', 'png'])])
