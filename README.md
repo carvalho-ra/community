@@ -320,6 +320,12 @@ Future improvements may include:
 
 This project is licensed under the terms of the license included in this repository.
 
+## Live Demo
+
+The application is deployed on Railway and available online:
+
+**https://community-production-932f.up.railway.app/**
+
 ## Screenshots
 
 ### Home
